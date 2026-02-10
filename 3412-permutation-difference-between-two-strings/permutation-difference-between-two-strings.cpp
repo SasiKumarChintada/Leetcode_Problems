@@ -1,14 +1,18 @@
 class Solution {
 public:
     int findPermutationDifference(string s, string t) {
-        int l1=s.size();
-        int l2=s.size();
+        unordered_map<char,int>smap;
+        unordered_map<char,int>tmap;
+        for(int i=0;i<s.size();i++){
+            smap[s[i]]=i;
+            tmap[t[i]]=i;
+        }
         int sum=0;
-        for(int i=0;i<l1;i++){
-            for(int j=0;j<l2;j++){
-                if(s[i]==t[j]) sum+=abs(i-j);
-            }
+        for(int i=0;i<s.size();i++){
+            char a=s[i];
+            sum+=abs(smap[a]-tmap[a]);
         }
         return sum;
+
     }
 };
