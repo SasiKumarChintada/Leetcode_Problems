@@ -1,8 +1,16 @@
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-        sort(s.begin(),s.end());
-        sort(t.begin(),t.end());
-        return s==t;
+        vector<int>have(26,0);
+        for(char ch:s){
+            have[ch-'a']++;
+        }
+        for(char ch:t){
+            have[ch-'a']--;
+        }
+        for(int x: have){
+            if(x!=0) return false;
+        }
+        return true;
     }
 };
