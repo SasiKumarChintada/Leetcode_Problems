@@ -1,14 +1,13 @@
 class Solution {
 public:
     int reverse(int x) {
-        if(x==INT_MIN) return 0;
-        int org=x;
-        x=abs(x);
-        string s=to_string(x);
-        std::reverse(s.begin(),s.end());
-        long long ans=stoll(s);
-        if(ans>INT_MAX || ans<INT_MIN) return 0;
-        if(org<0) return -1*ans;
-        else return ans;
+        int ans=0;
+        while(x!=0){
+            int k=x%10;
+            if(ans>INT_MAX/10|| ans<INT_MIN/10) return 0;
+            ans=ans*10+k;
+            x/=10;
+        }
+        return ans;
     }
 };
