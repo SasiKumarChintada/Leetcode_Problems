@@ -1,13 +1,23 @@
 class Solution {
 public:
     int singleNumber(vector<int>& nums) {
-        unordered_map<int,int>freq;
+        vector<int>res(32,0);
         for(int i=0;i<nums.size();i++){
-            freq[nums[i]]++;
+            int x=0;
+            while(x<32){
+                int mask=(1<<x); 
+                if( (nums[i] & mask) !=0){
+                    res[x]++;
+                }
+                x++;
+            }
         }
-        for(auto &p: freq){
-            if(p.second==1) return p.first;
+        int ans=0;
+        for(int i=0;i<32;i++){
+            if(res[i]%3 > 0){
+                ans |= (1<<(i));
+            }
         }
-        return 0;
+        return ans;
     }
 };
