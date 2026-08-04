@@ -1,12 +1,22 @@
 class Solution {
 public:
     vector<int> findMissingElements(vector<int>& nums) {
-        int mini=*min_element(nums.begin(),nums.end());
-        int maxii=*max_element(nums.begin(),nums.end());
+        int mini=INT_MAX;
+        int maxi=INT_MIN;
         vector<int>res;
-        for(int i=mini+1;i<maxii;i++){
-            int cnt=count(nums.begin(),nums.end(),i);
-            if(cnt!=1) res.push_back(i);
+        for(int x:nums){
+            if(x>maxi){
+                maxi=x;
+            }
+            if(x<mini){
+                mini=x;
+            }
+        }
+        for(int i=mini;i<=maxi;i++){
+            auto it = find(nums.begin(),nums.end(),i);
+            if(it==nums.end()){
+                res.push_back(i);
+            }
         }
         return res;
     }
