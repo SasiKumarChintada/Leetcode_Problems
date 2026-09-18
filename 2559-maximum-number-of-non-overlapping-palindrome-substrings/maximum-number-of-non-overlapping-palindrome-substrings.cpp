@@ -1,30 +1,33 @@
 class Solution {
 public:
-    bool isPalindrome(const string& s, int st, int e) {
-        while(st < e) {
-            if(s[st] != s[e]) return false;
-            st++;
-            e--;
-        }
+    bool isPalindrome(string &s,int l,int r){
+        while(l<r){
+            if(s[l]!=s[r]) return false;
+            l++;
+            r--;
+        }  
         return true;
     }
     int maxPalindromes(string s, int k) {
-        int ans = 0;
-        int le = -1;
-        int n = s.size();
-        for(int i = k - 1; i < n; i++) {
-            int st = i - k + 1;
-            if(st > le && isPalindrome(s, st, i)) {
-                ans++;
-                le = i;
-                continue;
+        int n=s.size();
+        int l=0;
+        int r=k-1;
+        int pal=0;
+        while(r<n){
+            if(isPalindrome(s,l,r)){
+                pal++;
+                l=r+1;
+                r+=k;
             }
-            st = i - k;
-            if(st > le && isPalindrome(s, st, i)) {
-                ans++;
-                le = i;
+            else{
+                if(r-l+1==k){
+                    r++;
+                }
+                else{
+                    l++;
+                }
             }
         }
-        return ans;
+        return pal;
     }
 };
