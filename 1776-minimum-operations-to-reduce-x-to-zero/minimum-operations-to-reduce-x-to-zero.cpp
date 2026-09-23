@@ -1,23 +1,25 @@
 class Solution {
 public:
     int minOperations(vector<int>& nums, int x) {
+        // minimum subarray whose sum == total_sum - x;
         int n=nums.size();
-        long long sum=accumulate(nums.begin(),nums.end(),0LL);
-        long long target=sum-x;
-        if(target<0) return -1;
+        long long total_sum = accumulate(nums.begin(),nums.end(),0LL);
+        long long find_sum = total_sum-x;
+        if(find_sum<0) return -1;
         int l=0;
-        int maxL=INT_MIN;
-        long long sum1=0;
+        long long sum=0;
+        int max_len=INT_MIN;
         for(int r=0;r<n;r++){
-            sum1+=nums[r];
-            while(sum1>target){
-                sum1-=(long long)nums[l];
+            sum+=nums[r];
+            while(sum>find_sum){
+                sum-=nums[l];
                 l++;
             }
-            if(sum1==target){
-                maxL=max(maxL,r-l+1);
+            if(sum==find_sum){
+                max_len=max(max_len,r-l+1);
+                cout<<max_len<<" ";
             }
         }
-        return maxL==INT_MIN ? -1 : n-maxL;
+        return max_len==INT_MIN ? -1 : n-max_len;
     }
 };
